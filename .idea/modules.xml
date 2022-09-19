@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/algorithm-code/algorithm-code.iml" filepath="$PROJECT_DIR$/algorithm-code/algorithm-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/annotation-code/annotation-code.iml" filepath="$PROJECT_DIR$/annotation-code/annotation-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collection-code/collection-code.iml" filepath="$PROJECT_DIR$/collection-code/collection-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/date-code/date-code.iml" filepath="$PROJECT_DIR$/date-code/date-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-code/demo-code.iml" filepath="$PROJECT_DIR$/demo-code/demo-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/design-pattern/design-pattern.iml" filepath="$PROJECT_DIR$/design-pattern/design-pattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/enumerate-code/enumerate-code.iml" filepath="$PROJECT_DIR$/enumerate-code/enumerate-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generics-code/generics-code.iml" filepath="$PROJECT_DIR$/generics-code/generics-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reflect-code/reflect-code.iml" filepath="$PROJECT_DIR$/reflect-code/reflect-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stream-code/stream-code.iml" filepath="$PROJECT_DIR$/stream-code/stream-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thread-code/thread-code.iml" filepath="$PROJECT_DIR$/thread-code/thread-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-code/web-code.iml" filepath="$PROJECT_DIR$/web-code/web-code.iml" />
+    </modules>
+  </component>
+</project>
