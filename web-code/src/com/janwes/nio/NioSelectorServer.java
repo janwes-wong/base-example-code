@@ -59,6 +59,7 @@ public class NioSelectorServer {
                     if (len > 0) {
                         System.out.println("接收到数据：" + new String(byteBuffer.array(), "GBK"));
                     } else if (len == -1) {
+                        // 关闭连接
                         sc.close();
                         System.out.println("客户端断开连接......");
                     }
