@@ -24,7 +24,7 @@ public class NioServer {
         // 创建NIO ServerSocketChannel
         ServerSocketChannel serverSocket = ServerSocketChannel.open();
         // 绑定端口
-        serverSocket.bind(new InetSocketAddress(9000));
+        serverSocket.socket().bind(new InetSocketAddress(9000));
         // 设置ServerSocketChannel为非阻塞
         serverSocket.configureBlocking(false);
         System.out.println("===> 服务启动成功,等待连接中......");
@@ -49,6 +49,7 @@ public class NioServer {
                 if (len > 0) {
                     System.out.println("接收到数据：" + new String(byteBuffer.array(), "GBK"));
                 } else if (len == -1) {
+                    sc.close();
                     iterator.remove();
                     System.out.println("客户端断开连接......");
                 }
