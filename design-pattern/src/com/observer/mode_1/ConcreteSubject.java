@@ -1,6 +1,7 @@
-package com.observer;
+package com.observer.mode_1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,7 +27,12 @@ public class ConcreteSubject implements Subject {
     @Override
     public void detach(Observer observer) {
         // 移除订阅关系
-        observers.remove(observer);
+        Iterator<Observer> iterator = observers.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() == observer) {
+                iterator.remove();
+            }
+        }
     }
 
     @Override

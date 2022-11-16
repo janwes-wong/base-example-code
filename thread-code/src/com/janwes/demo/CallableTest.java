@@ -23,9 +23,7 @@ public class CallableTest {
         try {
             Integer sum = futureTask.get();
             System.out.println("得到线程处理的结果：" + sum);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -27,7 +27,7 @@ public class SeqStack<T> implements Stack<T>, Serializable {
     /**
      * 存放元素的数组
      */
-    private T[] array;
+    private Object[] array;
 
     /**
      * 数组的大小
@@ -35,11 +35,11 @@ public class SeqStack<T> implements Stack<T>, Serializable {
     private int size;
 
     public SeqStack() {
-        array = (T[]) new Object[this.capacity];
+        array = new Object[this.capacity];
     }
 
     public SeqStack(int capacity) {
-        array = (T[]) new Object[capacity];
+        array = new Object[capacity];
     }
 
     public int size() {
@@ -73,7 +73,7 @@ public class SeqStack<T> implements Stack<T>, Serializable {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return array[top];
+        return (T) array[top];
     }
 
     /**
@@ -87,7 +87,7 @@ public class SeqStack<T> implements Stack<T>, Serializable {
             throw new EmptyStackException();
         }
         size--;
-        return array[top--];
+        return (T) array[top--];
     }
 
     /**
@@ -100,10 +100,8 @@ public class SeqStack<T> implements Stack<T>, Serializable {
         if (capacity < size) {
             return;
         }
-        T[] oldArr = array;
-        array = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            array[i] = oldArr[i];
-        }
+        Object[] oldArr = array;
+        array = new Object[capacity];
+        if (size >= 0) System.arraycopy(oldArr, 0, array, 0, size);
     }
 }

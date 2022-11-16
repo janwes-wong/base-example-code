@@ -14,6 +14,7 @@ public class SeqStackTest {
         stack.push("B");
         stack.push("C");
         System.out.println("size ---> " + stack.size());
+        System.out.println("peek element ---> " + stack.peek());
         int size = stack.size();
         for (int i = 0; i < size; i++) {
             System.out.println("pop element ---> " + stack.pop());

@@ -1,4 +1,4 @@
-package com.observer;
+package com.observer.mode_1;
 
 /**
  * @author Janwes
