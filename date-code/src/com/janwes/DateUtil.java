@@ -4,7 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Janwes
@@ -292,7 +295,7 @@ public class DateUtil {
     public static long diffHours(Date startDate, Date endDate) {
         // Date转成LocalDate
         LocalDateTime startLocalDateTime = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime endLocalDateTime= endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime endLocalDateTime = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         // 计算相差时数
         return ChronoUnit.HOURS.between(startLocalDateTime, endLocalDateTime);
     }
@@ -390,5 +393,85 @@ public class DateUtil {
     public static long diffMonths(LocalDateTime startLocalDateTime, LocalDateTime endLocalDateTime) {
         // 计算相差月数
         return ChronoUnit.MONTHS.between(startLocalDateTime, endLocalDateTime);
+    }
+
+    /**
+     * 获取当前周的所有日期
+     *
+     * @param n           -1代表上一周,1代表下一周
+     * @param currentDate 当前日期
+     * @return
+     */
+    private static List<Date> getWeek(int n, Date currentDate) {
+        List<Date> date = new ArrayList<>();
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setFirstDayOfWeek(Calendar.MONDAY);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(currentDate);
+            // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周了
+            int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+            if (dayWeek == 1) {
+                cal.add(Calendar.DAY_OF_MONTH, -1);
+            }
+            // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+            cal.setFirstDayOfWeek(Calendar.MONDAY);
+            // 获得当前日期是一个星期的第几天
+            int day = cal.get(Calendar.DAY_OF_WEEK);
+            // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+            cal.add(Calendar.DATE, (cal.getFirstDayOfWeek() - day + 7 * n));
+            date.add(cal.getTime());
+            for (int i = 1; i < 7; i++) {
+                cal.add(Calendar.DATE, 1);
+                date.add(cal.getTime());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
+
+    /**
+     * 获取当前日期所在周的所有日期
+     *
+     * @param currentDate
+     * @return
+     */
+    public static List<Date> getCurrentWeek(Date currentDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+
+        // 获得当前日期是一个星期的第几天 按照西方习惯认为周日为一星期中的第一天，为了按中国的习惯一个星期的第一天是星期一，故减1
+        int b = cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ? 7 : cal.get(Calendar.DAY_OF_WEEK) - 1;
+        Date date;
+        List<Date> dates = new ArrayList<>();
+        long timestamp = currentDate.getTime() - b * 24 * 3600000L;
+        for (int a = 1; a <= 7; a++) {
+            date = new Date();
+            date.setTime(timestamp + (a * 24 * 3600000));
+            dates.add(a - 1, date);
+        }
+        return dates;
+    }
+
+    /**
+     * 获取当前日期的下周几日期
+     *
+     * @param currentDate
+     * @param dayOfWeek
+     * @return
+     */
+    public static Date getNextWeekDate(Date currentDate, int dayOfWeek) {
+        if (dayOfWeek <= 0 || dayOfWeek > 7) {
+            throw new IllegalStateException(String.format("day of week [%s] is illegal value.", dayOfWeek));
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+
+        // 获得当前日期是一个星期的第几天 按照西方习惯认为周日为一星期中的第一天，为了按中国的习惯一个星期的第一天是星期一，故减1
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ? 7 : cal.get(Calendar.DAY_OF_WEEK) - 1;
+        cal.add(Calendar.DATE, (7 - dayWeek) + dayOfWeek);
+        return cal.getTime();
     }
 }
