@@ -2,6 +2,7 @@ package com.janwes.date;
 
 import com.janwes.DateUtil;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,11 +16,11 @@ import java.util.List;
  * @description
  */
 public class WeekDateTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         System.out.println(getWeek(1, new Date()));
         System.out.println(dateToCurrentWeek(new Date()));
 
-        System.out.println(DateUtil.getNextWeekDate(new Date(), -5));
+        System.out.println(DateUtil.getWeekDate(new Date(), 0, 7));
     }
 
     /**

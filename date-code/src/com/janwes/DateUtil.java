@@ -474,4 +474,43 @@ public class DateUtil {
         cal.add(Calendar.DATE, (7 - dayWeek) + dayOfWeek);
         return cal.getTime();
     }
+
+    /**
+     * 根据当前日期获取指定星期几的日期
+     *
+     * @param currentDate 当前日期
+     * @param weekFlag    周标识：0代表本周，1代表下一周，-1代表上一周
+     * @param dayOfWeek   星期几
+     * @return
+     */
+    public static Date getWeekDate(Date currentDate, int weekFlag, int dayOfWeek) {
+        if (weekFlag > 1 || weekFlag < -1) {
+            throw new IllegalStateException(String.format("weekFlag value can't be [%s].", weekFlag));
+        }
+        if (dayOfWeek <= 0 || dayOfWeek > 7) {
+            throw new IllegalStateException(String.format("day of week [%s] is illegal value.", dayOfWeek));
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+
+        // 获得当前日期是一个星期的第几天 按照西方习惯认为周日为一星期中的第一天，为了按中国的习惯一个星期的第一天是星期一，故减1
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ? 7 : cal.get(Calendar.DAY_OF_WEEK) - 1;
+        switch (weekFlag) {
+            case 0:
+                if (dayWeek == dayOfWeek) {
+                    return cal.getTime();
+                }
+                cal.add(Calendar.DATE, dayOfWeek - dayWeek);
+                break;
+            case 1:
+                cal.add(Calendar.DATE, (7 - dayWeek) + dayOfWeek);
+                break;
+            case -1:
+                cal.add(Calendar.DATE, (-7 - dayWeek) + dayOfWeek);
+                break;
+            default:
+                throw new IllegalStateException(String.format("weekFlag value can't be [%s].", weekFlag));
+        }
+        return cal.getTime();
+    }
 }
