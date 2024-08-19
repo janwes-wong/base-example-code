@@ -1,12 +1,12 @@
 package com.janwes.localDate;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author Janwes
@@ -27,10 +27,22 @@ public class LocalDateTest {
         System.out.println("月(英文): " + localDate.getMonth());
         System.out.println("月(数字): " + localDate.getMonthValue());
         System.out.println("今天一年中的第几天(数字): " + localDate.get(ChronoField.DAY_OF_YEAR));
-        System.out.println("今天一年中的第几天(数字): " + localDate.get(ChronoField.DAY_OF_WEEK));
+        System.out.println("今天本周中的第几天(数字): " + localDate.get(ChronoField.DAY_OF_WEEK));
         System.out.println("星期(英文): " + localDate.getDayOfWeek());
         System.out.println("星期(数字): " + localDate.getDayOfWeek().getValue());
-        final LocalDate of = LocalDate.of(2022, 5, 1);
+        final LocalDate of = LocalDate.of(2023, 7, 3);
         System.out.println(of);
+        System.out.println(of.get(ChronoField.DAY_OF_WEEK));
+        System.out.println(of.format(DateTimeFormatter.BASIC_ISO_DATE));
+
+        System.out.println(get(LocalDate.of(2023, 6, 13), LocalDate.now()));
+    }
+
+    private static List<LocalDate> get(LocalDate startDate, LocalDate endDate) {
+        long betweenTime = ChronoUnit.DAYS.between(startDate, endDate);
+        return IntStream.iterate(0, i -> i + 1)
+                .limit(betweenTime)
+                .mapToObj(startDate::plusDays)
+                .collect(Collectors.toList());
     }
 }
